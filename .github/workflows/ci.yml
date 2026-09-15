@@ -79,7 +79,7 @@ jobs:
 
       - name: Upload coverage report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: server-coverage
           path: server/coverage/
@@ -111,7 +111,7 @@ jobs:
           VITE_API_URL: https://way2code-api.onrender.com/api
 
       - name: Upload build output
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: client-build
           path: client/build/
