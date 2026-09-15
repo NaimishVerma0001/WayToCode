@@ -62,7 +62,7 @@ jobs:
       # Downloading the in-memory MongoDB binary takes far longer than the
       # tests themselves, so it is cached across runs.
       - name: Cache MongoDB binaries
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cache/mongodb-binaries
           key: mongodb-binaries-${{ runner.os }}-v11
