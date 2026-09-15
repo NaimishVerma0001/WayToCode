@@ -1,0 +1,209 @@
+/*
+|--------------------------------------------------------------------------
+| Platform card
+|--------------------------------------------------------------------------
+| The platform's hue appears exactly twice: a hairline on the leading edge
+| and the dot beside its name. The figures themselves stay achromatic, so a
+| grid of seven cards reads as one instrument rather than seven brands
+| competing for attention.
+*/
+
+.pcard {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--platform-color, var(--ink-600));
+  border-radius: var(--radius-lg);
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.pcard:hover {
+  background: var(--surface-raised);
+  transform: translateY(-2px);
+}
+
+/* A platform with no handle recedes until it is connected. */
+.pcard[data-state="idle"] {
+  border-left-color: var(--ink-700);
+}
+
+.pcard[data-state="idle"] .dot {
+  background: var(--ink-600);
+}
+
+.pcard__head {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-4) var(--space-3);
+}
+
+.pcard__identity {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-width: 0;
+}
+
+.pcard__names {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.pcard__name {
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: var(--tracking-snug);
+}
+
+.pcard__handle {
+  overflow: hidden;
+  font-size: var(--text-2xs);
+  color: var(--text-dim);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pcard__refresh {
+  display: grid;
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-fast) var(--ease-out);
+  place-items: center;
+  block-size: 28px;
+  inline-size: 28px;
+}
+
+.pcard__refresh:hover:not(:disabled) {
+  color: var(--text);
+  background: var(--surface-overlay);
+}
+
+.pcard__refresh:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Metrics
+|--------------------------------------------------------------------------
+| A definition list, because that is exactly what it is: a label and its
+| value. Rows are separated by hairlines rather than boxes.
+*/
+
+.pcard__body {
+  flex: 1;
+  padding-inline: var(--space-4);
+}
+
+.pcard__metrics {
+  display: flex;
+  flex-direction: column;
+}
+
+.pcard__metric {
+  display: flex;
+  gap: var(--space-3);
+  align-items: baseline;
+  justify-content: space-between;
+  padding-block: var(--space-2);
+  border-top: 1px solid var(--line);
+}
+
+.pcard__metric:first-child {
+  border-top: none;
+}
+
+.pcard__metric dt {
+  overflow: hidden;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pcard__metric dd {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* The last row is the headline figure for that platform. */
+.pcard__metric:last-child dd {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Empty & error
+|--------------------------------------------------------------------------
+*/
+
+.pcard__state {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: center;
+  min-height: 104px;
+  padding: var(--space-4) var(--space-2);
+  text-align: center;
+}
+
+.pcard__state svg {
+  font-size: var(--text-md);
+  color: var(--text-dim);
+}
+
+.pcard__state p {
+  max-width: 28ch;
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  color: var(--text-muted);
+}
+
+.pcard__state--error svg {
+  color: var(--status-caution);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Footer
+|--------------------------------------------------------------------------
+*/
+
+.pcard__foot {
+  padding: var(--space-3) var(--space-4);
+  margin-block-start: var(--space-2);
+  border-top: 1px solid var(--line);
+}
+
+.pcard__link {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.pcard__link:hover {
+  color: var(--platform-color, var(--text));
+}

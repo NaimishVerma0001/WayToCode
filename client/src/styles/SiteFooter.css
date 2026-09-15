@@ -1,0 +1,334 @@
+.site-footer {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    color: var(--text-secondary);
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+}
+
+
+.site-footer *,
+.site-footer *::before,
+.site-footer *::after {
+    box-sizing: border-box;
+}
+
+.site-footer-container {
+    width:
+        min(
+            1220px,
+            calc(100% - 40px)
+        );
+    margin-inline: auto;
+    padding: 72px 0 28px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Main footer layout
+|--------------------------------------------------------------------------
+*/
+
+.site-footer-main {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.2fr)
+        minmax(390px, 0.8fr);
+    align-items: start;
+    gap: 110px;
+}
+
+.site-footer-brand {
+    max-width: 520px;
+}
+
+.site-footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.site-footer-logo > span {
+    display: inline-flex;
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    align-items: center;
+    justify-content: center;
+    color: var(--action-text);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--action);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    box-shadow: none;
+}
+
+.site-footer-logo strong {
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+}
+
+.site-footer-brand > p {
+    max-width: 500px;
+    margin: 22px 0 0;
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+.site-footer-trust {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+    margin-top: 27px;
+}
+
+.site-footer-trust span {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #8292a8;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.site-footer-trust i {
+    width: 7px;
+    height: 7px;
+    background: #34d399;
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 5px
+        rgba(52, 211, 153, 0.09);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Footer navigation
+|--------------------------------------------------------------------------
+*/
+
+.site-footer-navigation {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 76px;
+    padding-top: 4px;
+}
+
+.site-footer-navigation > div {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.site-footer-navigation h2 {
+    margin: 0 0 7px;
+    color: #f1f5f9;
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.site-footer-navigation button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 2px 0;
+    color: #a5b3c6;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    transition:
+        color 180ms ease,
+        transform 180ms ease;
+}
+
+.site-footer-navigation button:hover {
+    color: var(--text);
+    transform: translateX(4px);
+}
+
+.site-footer-navigation button:focus-visible {
+    color: var(--text);
+    outline: 2px solid var(--ink-200);
+    outline-offset: 5px;
+    border-radius: 4px;
+}
+
+.site-footer-navigation button svg {
+    width: 14px;
+    flex: 0 0 14px;
+    color: var(--text-dim);
+    font-size: 14px;
+}
+
+.site-footer-navigation span {
+    padding: 2px 0;
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Copyright area
+|--------------------------------------------------------------------------
+*/
+
+.site-footer-divider {
+    width: 100%;
+    height: 1px;
+    margin: var(--space-8) 0 var(--space-5);
+    background: var(--line);
+}
+
+.site-footer-bottom {
+    display: grid;
+    grid-template-columns:
+        auto minmax(300px, 1fr) auto;
+    align-items: center;
+    gap: 36px;
+}
+
+.site-footer-bottom p {
+    margin: 0;
+    color: #75849a;
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+.site-footer-copyright {
+    color: var(--text-muted) !important;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.site-footer-disclaimer {
+    max-width: 620px;
+    justify-self: center;
+    text-align: center;
+}
+
+.site-footer-status {
+    display: inline-flex;
+    align-items: center;
+    justify-self: end;
+    gap: 9px;
+    color: #8493a8;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.site-footer-status i {
+    width: 8px;
+    height: 8px;
+    background: var(--status-positive);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 5px
+        rgba(34, 197, 94, 0.09);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Responsive footer
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 950px) {
+    .site-footer-main {
+        grid-template-columns: 1fr;
+        gap: 55px;
+    }
+
+    .site-footer-brand {
+        max-width: 600px;
+    }
+
+    .site-footer-navigation {
+        max-width: 520px;
+    }
+
+    .site-footer-bottom {
+        grid-template-columns: 1fr;
+        gap: 13px;
+    }
+
+    .site-footer-disclaimer {
+        justify-self: start;
+        text-align: left;
+    }
+
+    .site-footer-status {
+        justify-self: start;
+    }
+}
+
+@media (max-width: 600px) {
+    .site-footer::before,
+    .site-footer-container {
+        width:
+            min(
+                100% - 28px,
+                1220px
+            );
+    }
+
+    .site-footer-container {
+        padding: 58px 0 24px;
+    }
+
+    .site-footer-logo > span {
+        width: 43px;
+        height: 43px;
+        flex-basis: 43px;
+    }
+
+    .site-footer-logo strong {
+        font-size: 23px;
+    }
+
+    .site-footer-brand > p {
+        font-size: 14px;
+    }
+
+    .site-footer-navigation {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .site-footer-navigation button,
+    .site-footer-navigation span {
+        font-size: 14px;
+    }
+
+    .site-footer-divider {
+        margin-top: 48px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-footer * {
+        transition-duration:
+            0.01ms !important;
+    }
+}

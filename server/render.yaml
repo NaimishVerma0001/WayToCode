@@ -1,0 +1,67 @@
+services:
+  - type: web
+    name: way2code-api
+    runtime: node
+    plan: free
+    region: oregon
+
+    # The repository is an npm workspace, so both the install and the start
+    # command must run from the repository root; building inside server/ alone
+    # would ignore the single root lockfile.
+    rootDir: .
+    buildCommand: npm ci --omit=dev --workspace server --include-workspace-root
+    startCommand: npm run start --workspace server
+
+    healthCheckPath: /health
+
+    # The health endpoint reports 503 while MongoDB is unreachable, so a
+    # degraded instance is taken out of rotation instead of serving errors.
+    autoDeploy: true
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      - key: NODE_VERSION
+        value: "22"
+
+      # Connection string for MongoDB Atlas. Set in the Render dashboard.
+      - key: MONGO_URI
+        sync: false
+
+      # Rotating this signs every existing session out; it is generated once.
+      - key: JWT_SECRET
+        generateValue: true
+
+      - key: JWT_EXPIRES_IN
+        value: 15m
+
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 7d
+
+      # Comma-separated https origins allowed for CORS and WebSockets.
+      - key: CLIENT_URL
+        sync: false
+
+      # HMAC key for registration one-time codes. Startup fails without it in
+      # production, because signup would otherwise break silently.
+      - key: REGISTRATION_OTP_SECRET
+        generateValue: true
+
+      # SMTP delivery. All four are required in production.
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_SECURE
+        value: "false"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+
+      # Optional: raises the GitHub API rate limit for profile lookups.
+      - key: GITHUB_TOKEN
+        sync: false

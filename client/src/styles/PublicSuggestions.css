@@ -1,0 +1,346 @@
+/*
+|--------------------------------------------------------------------------
+| Ideas
+|--------------------------------------------------------------------------
+| A request board. The form and the board sit side by side so what people
+| have already asked for stays visible while you write — an 800px centred
+| column previously pushed the board a full screen below the form.
+*/
+
+.suggestions-wrapper {
+  width: 100%;
+  max-width: var(--shell-max);
+  padding-inline: var(--shell-gutter);
+  padding-block: var(--space-8) var(--space-16);
+  margin-inline: auto;
+}
+
+.suggestions-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block-end: var(--space-5);
+  margin-block-end: var(--space-6);
+  border-bottom: 1px solid var(--line);
+}
+
+.suggestions-header h2 {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+}
+
+.suggestions-header p {
+  max-width: 62ch;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.suggestions-body {
+  display: grid;
+  grid-template-columns: 380px minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Form
+|--------------------------------------------------------------------------
+*/
+
+.suggestion-form {
+  position: sticky;
+  top: calc(60px + var(--space-4));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.suggestion-form h3 {
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+}
+
+.suggestion-form input,
+.suggestion-form select,
+.suggestion-form textarea {
+  width: 100%;
+  padding: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text);
+  background: var(--ink-900);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.suggestion-form input,
+.suggestion-form select {
+  padding-block: 0;
+  block-size: 42px;
+}
+
+.suggestion-form select {
+  cursor: pointer;
+}
+
+.suggestion-form textarea {
+  min-height: 120px;
+  line-height: var(--leading-normal);
+  resize: vertical;
+}
+
+.suggestion-form input::placeholder,
+.suggestion-form textarea::placeholder {
+  color: var(--text-dim);
+}
+
+.suggestion-form input:focus,
+.suggestion-form select:focus,
+.suggestion-form textarea:focus {
+  border-color: var(--ink-300);
+  outline: none;
+}
+
+.submit-idea-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--action-text);
+  cursor: pointer;
+  background: var(--action);
+  border: none;
+  border-radius: var(--radius-md);
+  transition: background-color var(--duration-fast) var(--ease-out);
+  block-size: 42px;
+}
+
+.submit-idea-btn:hover:not(:disabled) {
+  background: var(--action-hover);
+}
+
+.submit-idea-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Board
+|--------------------------------------------------------------------------
+*/
+
+.suggestions-list h3 {
+  margin-block-end: var(--space-4);
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.suggestion-card {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+  padding: var(--space-4);
+  margin-block-end: var(--space-2);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.suggestion-card:hover {
+  background: var(--surface-raised);
+  border-color: var(--line-strong);
+}
+
+/* The vote control is the card's only affordance, so it looks like one. */
+.upvote-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 48px;
+  padding: var(--space-2);
+  font: inherit;
+  cursor: pointer;
+  background: var(--ink-900);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+
+.upvote-box:hover {
+  background: var(--ink-850);
+  border-color: var(--line-accent);
+}
+
+.upvote-box:focus-visible {
+  outline: 2px solid var(--ink-200);
+  outline-offset: 2px;
+}
+
+.upvote-box .arrow {
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.upvote-box:hover .arrow {
+  color: var(--status-positive);
+}
+
+.upvote-box .count {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 800;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.suggestion-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+  flex: 1;
+}
+
+.suggestion-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.suggestion-content h4 {
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: var(--tracking-snug);
+}
+
+.suggestion-content p {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--text-muted);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Labels
+|--------------------------------------------------------------------------
+| Category is a neutral tag. Only status carries hue, because only status
+| tells the reader something that might still change.
+*/
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  background: var(--surface-overlay);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  block-size: 20px;
+}
+
+.author {
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  margin-inline-start: auto;
+  padding-inline: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  block-size: 20px;
+}
+
+.status-pill.under-review {
+  color: var(--text-dim);
+  border-color: var(--line-strong);
+}
+
+.status-pill.planned {
+  color: var(--status-info);
+  border-color: color-mix(in srgb, var(--status-info) 35%, transparent);
+}
+
+.status-pill.in-progress {
+  color: var(--status-caution);
+  border-color: color-mix(in srgb, var(--status-caution) 35%, transparent);
+}
+
+.status-pill.completed {
+  color: var(--status-positive);
+  border-color: color-mix(in srgb, var(--status-positive) 35%, transparent);
+}
+
+/*
+|--------------------------------------------------------------------------
+| States
+|--------------------------------------------------------------------------
+*/
+
+.loading-state,
+.empty-suggestions {
+  padding: var(--space-12) var(--space-6);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-align: center;
+  text-wrap: balance;
+  background: var(--surface);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-lg);
+}
+
+.suggestions-error {
+  padding: var(--space-3) var(--space-4);
+  margin-block-end: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--status-critical);
+  background: color-mix(in srgb, var(--status-critical) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--status-critical) 30%, transparent);
+  border-radius: var(--radius-md);
+}
+
+@media (max-width: 900px) {
+  .suggestions-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .suggestion-form {
+    position: static;
+  }
+}

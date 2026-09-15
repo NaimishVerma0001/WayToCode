@@ -1,0 +1,330 @@
+/* ==========================================
+   CONNECT PROFILES CONTAINER & HEADER
+========================================== */
+
+.connect-profiles-section {
+    width: 100%;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    background: var(--app-card-bg, var(--surface-raised));
+    border: 1px solid var(--app-border, rgba(255, 255, 255, 0.08));
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(16px);
+    box-sizing: border-box;
+}
+
+.connect-profiles-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--app-border, rgba(255, 255, 255, 0.06));
+}
+
+.connect-profiles-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.connect-profiles-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--surface-raised);
+    color: var(--ink-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.connect-profiles-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-200);
+}
+
+.connect-profiles-heading h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--app-text-main, var(--text));
+    margin: 0.15rem 0 0.35rem 0;
+}
+
+.connect-profiles-heading p {
+    font-size: 0.9rem;
+    color: var(--app-text-muted, var(--text-muted));
+    margin: 0;
+}
+
+.connect-profiles-count {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: var(--app-text-muted, var(--text-secondary));
+}
+
+.connect-profiles-count strong {
+    color: var(--ink-200);
+    font-size: 1rem;
+}
+
+/* ==========================================
+   COMPACT 2-COLUMN GRID LAYOUT
+========================================== */
+
+.connect-profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+}
+
+.connect-profile-field {
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+.connect-profile-field:hover {
+    border-color: rgba(56, 189, 248, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.connect-profile-field-error {
+    border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+/* Label & Status Header Row */
+.connect-profile-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.connect-profile-title-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.connect-profile-platform-icon {
+    color: var(--platform-accent, var(--ink-200));
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+}
+
+.connect-profile-label label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--app-text-main, var(--text));
+}
+
+/* Connection Badges */
+.connection-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.connection-status.is-connected {
+    background: rgba(34, 197, 94, 0.12);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.connection-status.is-disconnected {
+    background: rgba(148, 163, 184, 0.08);
+    color: var(--text-muted);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+/* Hidden long description to keep card height ultra-compact */
+.connect-profile-description {
+    display: none; 
+}
+
+/* Input Row */
+.connect-profile-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.connect-profile-input-wrapper {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    background: var(--ink-900);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    padding: 0 var(--space-3);
+    transition: border-color 0.2s;
+}
+
+.connect-profile-input-wrapper:focus-within {
+    border-color: var(--ink-200);
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+.connect-profile-input-wrapper span {
+    color: var(--app-text-muted, var(--text-dim));
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-right: 4px;
+}
+
+.connect-profile-control input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--app-text-main, var(--text));
+    padding: 9px 0;
+    font-size: 0.9rem;
+}
+
+.connect-profile-control input::placeholder {
+    color: var(--app-text-muted, var(--text-dim));
+}
+
+/* Clear / Disconnect Button */
+.disconnect-profile-button {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--status-critical);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.disconnect-profile-button:hover {
+    background: rgba(239, 68, 68, 0.25);
+    transform: scale(1.05);
+}
+
+/* Feedback Row (Errors & Unsaved state) */
+.connect-profile-feedback {
+    min-height: 16px;
+    font-size: 0.75rem;
+}
+
+.connect-profile-error {
+    color: var(--status-critical);
+    font-weight: 600;
+}
+
+.connect-profile-changed {
+    color: var(--status-caution);
+    font-weight: 600;
+}
+
+/* ==========================================
+   ACTIONS BAR (Reset & Save)
+========================================== */
+
+.connect-profiles-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--app-border, rgba(255, 255, 255, 0.06));
+}
+
+.connect-profiles-actions p {
+    font-size: 0.85rem;
+    color: var(--app-text-muted, var(--text-muted));
+    margin: 0;
+}
+
+.connect-profiles-actions div {
+    display: flex;
+    gap: 10px;
+}
+
+.connect-profiles-reset {
+    background: transparent;
+    color: var(--app-text-muted, var(--text-muted));
+    border: 1px solid var(--app-border, var(--line-strong));
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.connect-profiles-reset:hover:not(:disabled) {
+    color: var(--app-text-main, #fff);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.connect-profiles-save {
+    background: var(--ink-300);
+    color: var(--text);
+    border: none;
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.connect-profiles-save:hover:not(:disabled) {
+    background: var(--ink-400);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media(max-width: 900px) {
+    .connect-profiles-grid {
+        grid-template-columns: 1fr;
+    }
+}

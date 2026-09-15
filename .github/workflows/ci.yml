@@ -1,0 +1,185 @@
+name: CI
+
+on:
+  push:
+    branches: [main, feature-update]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# The workflow only ever reads the repository.
+permissions:
+  contents: read
+
+# A new push to the same branch supersedes an in-flight run, except on main
+# where every commit should produce a complete result.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  NODE_VERSION: "22"
+  # The published checkfile MD5 does not match the binary, which aborts the
+  # download. The archive still arrives over HTTPS from the official host.
+  MONGOMS_MD5_CHECK: "0"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+  server-tests:
+    name: Server tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Downloading the in-memory MongoDB binary takes far longer than the
+      # tests themselves, so it is cached across runs.
+      - name: Cache MongoDB binaries
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/mongodb-binaries
+          key: mongodb-binaries-${{ runner.os }}-v11
+          restore-keys: mongodb-binaries-${{ runner.os }}-
+
+      - name: Run tests with coverage
+        run: npm run test:server:coverage
+
+      # Boots the real server process over HTTP. The Jest suites mount the
+      # Express app directly, so only this catches regressions in the startup
+      # path or in the global Mongoose configuration.
+      - name: Run the end-to-end smoke test
+        run: npm run test:e2e
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-coverage
+          path: server/coverage/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  client:
+    name: Client tests & build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test:client
+
+      - name: Build production bundle
+        run: npm run build:client
+        env:
+          VITE_API_URL: https://way2code-api.onrender.com/api
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: client-build
+          path: client/build/
+          retention-days: 7
+
+  security:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      # High and critical advisories fail the build; lower severities are
+      # reported without blocking, so CI stays useful rather than noisy.
+      - name: Audit for high-severity advisories
+        run: npm audit --audit-level=high
+
+      - name: Report all advisories
+        if: always()
+        continue-on-error: true
+        run: npm audit
+
+  verify-lockfile:
+    name: Lockfile integrity
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      # `npm ci` is what CI and the Render build both run, so a lockfile that
+      # has drifted from package.json must fail here rather than in production.
+      - name: Verify the lockfile matches package.json
+        run: npm ci --dry-run
+
+      - name: Fail if a stray workspace lockfile exists
+        run: |
+          if [ -f server/package-lock.json ] || [ -f client/package-lock.json ]; then
+            echo "::error::A workspace has its own package-lock.json. Only the root lockfile is used."
+            exit 1
+          fi
+
+  ci-status:
+    name: CI status
+    runs-on: ubuntu-latest
+    needs: [lint, server-tests, client, security, verify-lockfile]
+    if: always()
+    steps:
+      # A single required check for branch protection, so adding a job above
+      # never means reconfiguring the protected-branch rules.
+      - name: Verify every job succeeded
+        run: |
+          if [ "${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}" = "true" ]; then
+            echo "::error::One or more CI jobs failed."
+            exit 1
+          fi
+          echo "All CI jobs passed."

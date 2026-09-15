@@ -1,0 +1,144 @@
+/*
+|--------------------------------------------------------------------------
+| Rank ladder
+|--------------------------------------------------------------------------
+| The signature element. Segment widths are proportional to each tier's real
+| rating span, so the gap between Expert and Master is the true distance, not
+| an evenly divided decoration.
+*/
+
+.ladder {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.ladder__head {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.ladder__identity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+/* The tier name takes the tier's own colour — the one legend that needs none. */
+.ladder__tier {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--rank-color, var(--text));
+  letter-spacing: var(--tracking-snug);
+}
+
+.ladder__handle {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.ladder__score {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.ladder__rating {
+  color: var(--rank-color, var(--text));
+}
+
+.ladder__score-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Track
+|--------------------------------------------------------------------------
+*/
+
+.ladder__track {
+  position: relative;
+  display: flex;
+  gap: 2px;
+  block-size: 8px;
+}
+
+.ladder__segment {
+  background: var(--rank-color);
+  border-radius: 2px;
+  opacity: 0.28;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.ladder__track:hover .ladder__segment {
+  opacity: 0.45;
+}
+
+/*
+ * The marker is a vertical pin rather than a dot so it reads as a precise
+ * position on a scale, not an approximate blob.
+ */
+.ladder__marker {
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  background: var(--text);
+  border-radius: 1px;
+  box-shadow: 0 0 0 3px var(--surface);
+  transform: translateX(-50%);
+  animation: ladder-pin var(--duration-slow) var(--ease-out);
+  inline-size: 3px;
+}
+
+@keyframes ladder-pin {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(0.3);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scaleY(1);
+  }
+}
+
+.ladder__foot {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: space-between;
+  font-size: var(--text-2xs);
+  color: var(--text-dim);
+}
+
+.ladder__range {
+  color: var(--ink-500);
+}
+
+@media (max-width: 480px) {
+  .ladder__head {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .ladder__score {
+    flex-direction: row;
+    gap: var(--space-2);
+    align-items: baseline;
+  }
+}

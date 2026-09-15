@@ -1,0 +1,750 @@
+.contest-command-card {
+    --contest-platform-color: var(--ink-400);
+
+    position: relative;
+    display: flex;
+    min-width: 0;
+    overflow: hidden;
+    flex-direction: column;
+    color: var(--text-secondary);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 2px solid var(--contest-platform-color);
+    border-radius: var(--radius-lg);
+    box-shadow:
+        0 22px 55px
+        rgba(2, 6, 23, 0.28),
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.025);
+    transition:
+        transform 220ms ease,
+        border-color 220ms ease,
+        box-shadow 220ms ease;
+}
+
+.contest-command-card::before {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 24px;
+    left: 24px;
+    height: 2px;
+    content: "";
+    background: var(--action);
+    opacity: 0.8;
+}
+
+.contest-command-card:hover {
+    border-color:
+        rgba(129, 140, 248, 0.3);
+    box-shadow:
+        0 30px 72px
+        rgba(2, 6, 23, 0.4),
+        0 0 0 1px
+        rgba(99, 102, 241, 0.045);
+    transform: translateY(-6px);
+}
+
+.contest-command-card *,
+.contest-command-card *::before,
+.contest-command-card *::after {
+    box-sizing: border-box;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Platform header
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: var(--space-4);
+    border-bottom:
+        1px solid
+        rgba(148, 163, 184, 0.1);
+}
+
+.contest-command-platform {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 11px;
+}
+
+.contest-command-platform >
+span {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    color:
+        var(
+            --contest-platform-color
+        );
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.045em;
+    background:
+        rgba(15, 23, 42, 0.7);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.14);
+    border-radius: 12px;
+    box-shadow:
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.035);
+}
+
+.contest-command-platform >
+div {
+    display: grid;
+    min-width: 0;
+    gap: 3px;
+}
+
+.contest-command-platform small {
+    color: var(--text-dim);
+    font-size: 9px;
+    font-weight: 750;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.contest-command-platform strong {
+    overflow: hidden;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.contest-command-status {
+    display: inline-flex;
+    min-height: 31px;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 7px;
+    padding: 0 10px;
+    font-size: 10px;
+    font-weight: 850;
+    white-space: nowrap;
+    border-radius: 999px;
+}
+
+.contest-command-status i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.contest-command-status-upcoming {
+    color: #93c5fd;
+    background:
+        rgba(59, 130, 246, 0.09);
+    border:
+        1px solid
+        rgba(96, 165, 250, 0.17);
+}
+
+.contest-command-status-upcoming i {
+    background: var(--ink-200);
+    box-shadow:
+        0 0 0 4px
+        rgba(96, 165, 250, 0.07);
+}
+
+.contest-command-status-starting-soon {
+    color: #fde68a;
+    background:
+        rgba(245, 158, 11, 0.09);
+    border:
+        1px solid
+        rgba(251, 191, 36, 0.18);
+}
+
+.contest-command-status-starting-soon i {
+    background: var(--status-caution);
+    box-shadow:
+        0 0 0 4px
+        rgba(251, 191, 36, 0.08);
+}
+
+.contest-command-status-live {
+    color: #86efac;
+    background:
+        rgba(34, 197, 94, 0.09);
+    border:
+        1px solid
+        rgba(74, 222, 128, 0.18);
+}
+
+.contest-command-status-live i {
+    background: var(--status-positive);
+    animation:
+        contest-live-pulse
+        1.5s ease-out infinite;
+}
+
+.contest-command-status-ended,
+.contest-command-status-unknown {
+    color: var(--text-muted);
+    background:
+        rgba(100, 116, 139, 0.1);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.14);
+}
+
+.contest-command-status-ended i,
+.contest-command-status-unknown i {
+    background: var(--text-dim);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Card body and title
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: var(--space-4);
+}
+
+.contest-command-title-row {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 15px;
+}
+
+.contest-command-type {
+    display: inline-flex;
+    width: fit-content;
+    min-height: 24px;
+    align-items: center;
+    padding: 0 8px;
+    color: var(--text);
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background:
+        rgba(99, 102, 241, 0.08);
+    border:
+        1px solid
+        rgba(129, 140, 248, 0.14);
+    border-radius: 7px;
+}
+
+.contest-command-title-row h2 {
+    min-height: 0;
+    margin: 10px 0 0;
+    color: var(--text);
+    font-size: 19px;
+    line-height: 1.4;
+    font-weight: 780;
+    letter-spacing: -0.025em;
+}
+
+.contest-bookmark {
+    display: inline-flex;
+    width: 39px;
+    height: 39px;
+    flex: 0 0 39px;
+    align-items: center;
+    justify-content: center;
+    color: #7e8ca2;
+    font-size: 14px;
+    cursor: pointer;
+    background:
+        rgba(15, 23, 42, 0.66);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.13);
+    border-radius: 11px;
+    transition:
+        color 180ms ease,
+        border-color 180ms ease,
+        background-color 180ms ease,
+        transform 180ms ease;
+}
+
+.contest-bookmark:hover {
+    color: #c7d2fe;
+    background:
+        rgba(99, 102, 241, 0.1);
+    border-color:
+        rgba(129, 140, 248, 0.28);
+    transform: translateY(-2px);
+}
+
+.contest-bookmark-active {
+    color: var(--status-caution);
+    background:
+        rgba(245, 158, 11, 0.08);
+    border-color:
+        rgba(251, 191, 36, 0.2);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Countdown
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-countdown {
+    margin-top: 21px;
+    padding: var(--space-3);
+    background: var(--action);
+    border:
+        1px solid
+        rgba(129, 140, 248, 0.12);
+    border-radius: 15px;
+}
+
+.contest-command-countdown >
+p {
+    margin: 0 0 12px;
+    color: var(--text-dim);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.065em;
+    text-transform: uppercase;
+}
+
+.contest-countdown-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(4, 1fr);
+    gap: 7px;
+}
+
+.contest-countdown-grid >
+div {
+    display: grid;
+    min-width: 0;
+    gap: 4px;
+    padding: var(--space-2) var(--space-1);
+    text-align: center;
+    background:
+        rgba(8, 15, 29, 0.55);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.08);
+    border-radius: 9px;
+}
+
+.contest-countdown-grid strong {
+    color: #e0e7ff;
+    font-size: 17px;
+    line-height: 1;
+    font-weight: 850;
+    font-variant-numeric:
+        tabular-nums;
+}
+
+.contest-countdown-grid span {
+    color: #59677b;
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Contest information
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-details {
+    display: grid;
+    gap: 11px;
+    margin-top: 18px;
+}
+
+.contest-command-details >
+div {
+    display: grid;
+    grid-template-columns:
+        34px minmax(0, 1fr);
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+}
+
+.contest-command-details >
+div > svg {
+    width: 34px;
+    height: 34px;
+    padding: 9px;
+    color: var(--text);
+    background:
+        rgba(99, 102, 241, 0.075);
+    border-radius: 9px;
+}
+
+.contest-command-details >
+div > span {
+    display: grid;
+    min-width: 0;
+    gap: 3px;
+}
+
+.contest-command-details small {
+    color: #59677b;
+    font-size: 8px;
+    font-weight: 750;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+}
+
+.contest-command-details strong {
+    overflow: hidden;
+    color: #b8c5d8;
+    font-size: 11px;
+    font-weight: 650;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Reminder control
+|--------------------------------------------------------------------------
+*/
+
+.contest-reminder-control {
+    margin-top: auto;
+    padding-top: 19px;
+}
+
+.contest-reminder-control >
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-dim);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.065em;
+    text-transform: uppercase;
+}
+
+.contest-reminder-control >
+select {
+    width:
+        calc(100% - 72px);
+    height: 39px;
+    padding: 0 10px;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 10px;
+    outline: none;
+    cursor: pointer;
+    color-scheme: dark;
+    background:
+        rgba(15, 23, 42, 0.72);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.13);
+    border-radius: 10px 0 0 10px;
+}
+
+.contest-reminder-control >
+button {
+    width: 72px;
+    height: 39px;
+    padding: 0;
+    color: var(--action-text);
+    font: inherit;
+    font-size: 10px;
+    font-weight: 800;
+    cursor: pointer;
+    background: var(--action);
+    border:
+        1px solid
+        rgba(129, 140, 248, 0.24);
+    border-radius: 0 10px 10px 0;
+}
+
+.contest-reminder-control >
+button svg {
+    margin-right: 5px;
+}
+
+.contest-reminder-control >
+select:focus-visible,
+.contest-reminder-control >
+button:focus-visible {
+    position: relative;
+    z-index: 1;
+    outline:
+        3px solid
+        rgba(99, 102, 241, 0.22);
+}
+
+.contest-reminder-active {
+    display: grid;
+    grid-template-columns:
+        30px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 9px;
+    padding: 11px;
+    color: var(--status-positive);
+    background:
+        rgba(16, 185, 129, 0.075);
+    border:
+        1px solid
+        rgba(52, 211, 153, 0.16);
+    border-radius: 11px;
+}
+
+.contest-reminder-active >
+svg {
+    justify-self: center;
+}
+
+.contest-reminder-active >
+span {
+    display: grid;
+    gap: 2px;
+    color: #a7f3d0;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.contest-reminder-active small {
+    color: #5f8b7e;
+    font-size: 8px;
+}
+
+.contest-reminder-active button {
+    display: inline-flex;
+    min-height: 31px;
+    align-items: center;
+    gap: 5px;
+    padding: 0 9px;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 9px;
+    font-weight: 750;
+    cursor: pointer;
+    background:
+        rgba(15, 23, 42, 0.5);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.12);
+    border-radius: 8px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Footer actions
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-footer {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr)
+        45px
+        45px;
+    gap: 9px;
+    padding: 0 23px 23px;
+}
+
+.contest-command-footer button {
+    display: inline-flex;
+    min-height: 45px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #a8b5c7;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    background:
+        rgba(15, 23, 42, 0.65);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.13);
+    border-radius: 11px;
+    transition:
+        color 180ms ease,
+        background-color 180ms ease,
+        border-color 180ms ease,
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.contest-command-footer button:hover {
+    color: var(--action-text);
+    background:
+        rgba(30, 41, 59, 0.9);
+    border-color:
+        rgba(129, 140, 248, 0.28);
+    transform: translateY(-2px);
+}
+
+.contest-command-footer
+.contest-primary-action {
+    color: var(--action-text);
+    background: var(--action);
+    border-color:
+        rgba(129, 140, 248, 0.3);
+    box-shadow:
+        0 12px 25px
+        rgba(55, 65, 210, 0.17);
+}
+
+.contest-command-footer
+.contest-primary-action:hover {
+    background: var(--action);
+    box-shadow:
+        0 15px 31px
+        rgba(55, 65, 210, 0.25);
+}
+
+.contest-command-footer
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    transform: none;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Focus and status variations
+|--------------------------------------------------------------------------
+*/
+
+.contest-bookmark:focus-visible,
+.contest-command-footer
+button:focus-visible,
+.contest-reminder-active
+button:focus-visible {
+    outline:
+        3px solid
+        rgba(99, 102, 241, 0.24);
+    outline-offset: 3px;
+}
+
+.contest-command-card-starting-soon {
+    border-color:
+        rgba(251, 191, 36, 0.22);
+}
+
+.contest-command-card-live {
+    border-color:
+        rgba(74, 222, 128, 0.22);
+}
+
+.contest-command-card-ended {
+    opacity: 0.76;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Responsive card
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 480px) {
+    .contest-command-card {
+        min-height: auto;
+        border-radius: 18px;
+    }
+
+    .contest-command-header,
+    .contest-command-body {
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+
+    .contest-command-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .contest-command-footer {
+        grid-template-columns:
+            minmax(0, 1fr)
+            43px
+            43px;
+        padding:
+            0 18px 18px;
+    }
+
+    .contest-countdown-grid {
+        gap: 5px;
+    }
+
+    .contest-countdown-grid strong {
+        font-size: 15px;
+    }
+
+    .contest-reminder-active {
+        grid-template-columns:
+            26px minmax(0, 1fr);
+    }
+
+    .contest-reminder-active button {
+        grid-column: 1 / -1;
+        justify-content: center;
+    }
+}
+
+@keyframes contest-live-pulse {
+    0% {
+        box-shadow:
+            0 0 0 0
+            rgba(34, 197, 94, 0.4);
+    }
+
+    70% {
+        box-shadow:
+            0 0 0 9px
+            rgba(34, 197, 94, 0);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 0
+            rgba(34, 197, 94, 0);
+    }
+}
+
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+    .contest-command-card,
+    .contest-command-card *,
+    .contest-command-card *::before,
+    .contest-command-card *::after {
+        animation-duration:
+            0.01ms !important;
+        animation-iteration-count:
+            1 !important;
+        transition-duration:
+            0.01ms !important;
+    }
+}

@@ -1,0 +1,40 @@
+version: 2
+
+updates:
+  # One npm ecosystem entry covers the whole workspace, because a single root
+  # lockfile resolves the dependencies of both the client and the server.
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    versioning-strategy: increase-if-necessary
+    labels:
+      - dependencies
+    groups:
+      # Patch and minor bumps arrive as one reviewable PR per area rather than
+      # a stream of individual ones.
+      production-dependencies:
+        dependency-type: production
+        update-types:
+          - minor
+          - patch
+      development-dependencies:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+    ignore:
+      # Majors are opened individually so each can be reviewed on its own.
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-major
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    labels:
+      - dependencies
+      - github-actions

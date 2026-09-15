@@ -1,0 +1,911 @@
+/*
+ * Mapped onto the app's ink ramp. This page ran its own indigo/blue palette
+ * and a full-viewport gradient hero, which made it look like a separate
+ * product and pushed the contest list — the reason the page exists — below
+ * the fold.
+ */
+.contest-command-page {
+    --contest-page-bg: var(--bg);
+    --contest-surface: var(--surface);
+    --contest-surface-soft: var(--surface-raised);
+    --contest-border: var(--line);
+    --contest-text: var(--text);
+    --contest-muted: var(--text-muted);
+    --contest-primary: var(--action);
+    --contest-secondary: var(--ink-100);
+
+    width: 100%;
+    min-height: 100vh;
+    padding-top: var(--space-6);
+    color: var(--contest-text);
+    background: var(--bg);
+}
+
+.contest-command-page *,
+.contest-command-page *::before,
+.contest-command-page *::after {
+    box-sizing: border-box;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Hero
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-hero {
+    display: grid;
+    width:
+        min(
+            var(--shell-max),
+            calc(100% - (var(--shell-gutter) * 2))
+        );
+    grid-template-columns:
+        minmax(0, 1.08fr)
+        minmax(390px, 0.92fr);
+    align-items: center;
+    gap: var(--space-12);
+    margin-inline: auto;
+    padding: var(--space-10) 0 var(--space-12);
+}
+
+.contest-command-hero-copy {
+    min-width: 0;
+}
+
+.contest-command-eyebrow {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    padding: 8px 13px;
+    color: #bfdbfe;
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background:
+        rgba(37, 99, 235, 0.09);
+    border:
+        1px solid
+        rgba(96, 165, 250, 0.2);
+    border-radius: 999px;
+}
+
+.contest-command-hero h1 {
+    max-width: 720px;
+    margin: 24px 0 22px;
+    color: var(--text);
+    font-size:
+        clamp(48px, 6vw, 76px);
+    line-height: 1.01;
+    font-weight: 850;
+    letter-spacing: -0.055em;
+}
+
+.contest-command-hero h1 span {
+    display: block;
+    color: var(--text-muted);
+}
+
+.contest-command-hero-copy >
+p {
+    max-width: 650px;
+    margin: 0;
+    color: var(--contest-muted);
+    font-size: 17px;
+    line-height: 1.75;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Hero summary
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-summary {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 38px;
+}
+
+.contest-command-summary article {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background:
+        rgba(15, 23, 42, 0.55);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.11);
+    border-radius: 14px;
+}
+
+.contest-command-summary article >
+svg {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    padding: 9px;
+    color: var(--text);
+    background:
+        rgba(99, 102, 241, 0.09);
+    border-radius: 10px;
+}
+
+.contest-command-summary article >
+div {
+    display: grid;
+    min-width: 0;
+    gap: 3px;
+}
+
+.contest-command-summary span {
+    overflow: hidden;
+    color: var(--text-dim);
+    font-size: 9px;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.contest-command-summary strong {
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 850;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Featured next contest
+|--------------------------------------------------------------------------
+*/
+
+.contest-next-panel {
+    position: relative;
+    min-width: 0;
+    padding: 28px;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 23px;
+    box-shadow:
+        0 32px 85px
+        rgba(2, 6, 23, 0.48),
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.03);
+}
+
+.contest-next-panel::before {
+    position: absolute;
+    top: 0;
+    right: 30px;
+    left: 30px;
+    height: 2px;
+    content: "";
+    background: var(--line-accent);
+}
+
+.contest-next-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding-bottom: 19px;
+    border-bottom:
+        1px solid
+        rgba(148, 163, 184, 0.1);
+}
+
+.contest-next-panel-header >
+span {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.075em;
+    text-transform: uppercase;
+}
+
+.contest-next-panel-header i {
+    padding: 6px 9px;
+    color: #86efac;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 800;
+    background:
+        rgba(34, 197, 94, 0.08);
+    border:
+        1px solid
+        rgba(74, 222, 128, 0.14);
+    border-radius: 999px;
+}
+
+.contest-next-platform {
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 23px;
+    padding: 6px 9px;
+    color: var(--text);
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background:
+        rgba(99, 102, 241, 0.08);
+    border:
+        1px solid
+        rgba(129, 140, 248, 0.14);
+    border-radius: 7px;
+}
+
+.contest-next-panel h2 {
+    min-height: 60px;
+    margin: 13px 0 22px;
+    color: var(--text);
+    font-size: 22px;
+    line-height: 1.4;
+    font-weight: 780;
+    letter-spacing: -0.025em;
+}
+
+.contest-next-time,
+.contest-next-countdown {
+    display: grid;
+    grid-template-columns:
+        82px minmax(0, 1fr);
+    align-items: center;
+    gap: 15px;
+    min-height: 53px;
+    padding:
+        10px 13px;
+    border-top:
+        1px solid
+        rgba(148, 163, 184, 0.08);
+}
+
+.contest-next-time span,
+.contest-next-countdown span {
+    color: var(--text-dim);
+    font-size: 10px;
+    font-weight: 750;
+    text-transform: uppercase;
+}
+
+.contest-next-time strong,
+.contest-next-countdown strong {
+    overflow: hidden;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.contest-next-countdown strong {
+    color: var(--text);
+    font-size: 17px;
+    font-variant-numeric:
+        tabular-nums;
+}
+
+.contest-next-panel >
+button {
+    display: inline-flex;
+    width: 100%;
+    min-height: 49px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 22px;
+    color: var(--action-text);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    background: var(--action);
+    border:
+        1px solid
+        rgba(129, 140, 248, 0.3);
+    border-radius: 12px;
+    box-shadow:
+        0 14px 29px
+        rgba(55, 65, 210, 0.2);
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.contest-next-panel >
+button:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 18px 35px
+        rgba(55, 65, 210, 0.28);
+}
+
+.contest-next-empty {
+    padding: 80px 20px;
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Main contest content
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-content {
+    width:
+        min(
+            1220px,
+            calc(100% - 40px)
+        );
+    margin-inline: auto;
+    padding: 78px 0 105px;
+    border-top:
+        1px solid
+        rgba(148, 163, 184, 0.11);
+}
+
+.contest-command-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.contest-command-heading >
+div > span {
+    display: inline-flex;
+    padding: 7px 11px;
+    color: var(--text);
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    background:
+        rgba(99, 102, 241, 0.07);
+    border:
+        1px solid
+        rgba(129, 140, 248, 0.14);
+    border-radius: 999px;
+}
+
+.contest-command-heading h2 {
+    margin: 15px 0 8px;
+    color: var(--text);
+    font-size:
+        clamp(31px, 4vw, 44px);
+    line-height: 1.1;
+    font-weight: 820;
+    letter-spacing: -0.045em;
+}
+
+.contest-command-heading p {
+    margin: 0;
+    color: #7c8ba1;
+    font-size: 14px;
+}
+
+.contest-command-refresh {
+    display: inline-flex;
+    min-height: 44px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 0 15px;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+    background:
+        rgba(15, 23, 42, 0.65);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.14);
+    border-radius: 11px;
+    transition:
+        background-color 180ms ease,
+        border-color 180ms ease;
+}
+
+.contest-command-refresh:hover {
+    background:
+        rgba(30, 41, 59, 0.88);
+    border-color:
+        rgba(129, 140, 248, 0.3);
+}
+
+.contest-command-refresh:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.contest-command-refresh
+.spinning {
+    animation:
+        contest-refresh-spin
+        800ms linear infinite;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Search and sorting
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-toolbar {
+    display: grid;
+    grid-template-columns:
+        minmax(260px, 1fr)
+        minmax(210px, auto);
+    gap: 14px;
+    margin-top: 36px;
+}
+
+.contest-command-search {
+    display: flex;
+    min-width: 0;
+    height: 50px;
+    align-items: center;
+    gap: 11px;
+    padding: 0 16px;
+    color: var(--text-dim);
+    background:
+        rgba(15, 23, 42, 0.66);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.13);
+    border-radius: 12px;
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.contest-command-search:focus-within {
+    border-color:
+        rgba(129, 140, 248, 0.5);
+    box-shadow:
+        0 0 0 3px
+        rgba(99, 102, 241, 0.13);
+}
+
+.contest-command-search input {
+    width: 100%;
+    min-width: 0;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 13px;
+    outline: none;
+    background: transparent;
+    border: 0;
+}
+
+.contest-command-search input::placeholder {
+    color: #536176;
+}
+
+.contest-command-sort {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+    background:
+        rgba(15, 23, 42, 0.66);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.13);
+    border-radius: 12px;
+}
+
+.contest-command-sort span {
+    flex: 0 0 auto;
+    color: var(--text-dim);
+    font-size: 10px;
+    font-weight: 750;
+    text-transform: uppercase;
+}
+
+.contest-command-sort select {
+    min-width: 145px;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+    color-scheme: dark;
+    background: transparent;
+    border: 0;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Filters
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-filters {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0 31px;
+    padding-bottom: 5px;
+    overflow-x: auto;
+    scrollbar-color:
+        rgba(100, 116, 139, 0.5)
+        transparent;
+    scrollbar-width: thin;
+}
+
+.contest-command-filters button {
+    display: inline-flex;
+    min-height: 40px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 13px;
+    color: #9aa8bb;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 750;
+    cursor: pointer;
+    background:
+        rgba(15, 23, 42, 0.55);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.12);
+    border-radius: 10px;
+    transition:
+        color 180ms ease,
+        background-color 180ms ease,
+        border-color 180ms ease;
+}
+
+.contest-command-filters button >
+span {
+    display: inline-flex;
+    min-width: 21px;
+    height: 21px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    color: var(--text);
+    font-size: 9px;
+    background:
+        rgba(99, 102, 241, 0.1);
+    border-radius: 999px;
+}
+
+.contest-command-filters button:hover {
+    color: var(--text);
+    background:
+        rgba(30, 41, 59, 0.82);
+    border-color:
+        rgba(129, 140, 248, 0.28);
+}
+
+.contest-command-filters
+button.active {
+    color: var(--action-text);
+    background: var(--action);
+    border-color: var(--action);
+    box-shadow:
+        0 10px 24px
+        rgba(79, 70, 229, 0.18);
+}
+
+.contest-command-filters
+button.active > span {
+    color: var(--text);
+    background:
+        rgba(255, 255, 255, 0.13);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Card grid
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 22px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Loading, error and empty states
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-state {
+    display: flex;
+    min-height: 390px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    padding: 44px 24px;
+    text-align: center;
+    background: var(--surface);
+    border:
+        1px dashed
+        rgba(148, 163, 184, 0.17);
+    border-radius: 20px;
+}
+
+.contest-command-state >
+svg,
+.contest-command-state >
+strong {
+    display: inline-flex;
+    width: 55px;
+    height: 55px;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    color: var(--text);
+    font-size: 22px;
+    background:
+        rgba(99, 102, 241, 0.08);
+    border:
+        1px solid
+        rgba(129, 140, 248, 0.15);
+    border-radius: 16px;
+}
+
+.contest-command-state h3 {
+    margin: 7px 0 0;
+    color: var(--text);
+    font-size: 20px;
+}
+
+.contest-command-state p {
+    max-width: 490px;
+    margin: 0;
+    color: #7c8ba1;
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.contest-command-state >
+button {
+    min-height: 42px;
+    margin-top: 8px;
+    padding: 0 15px;
+    color: var(--action-text);
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    background: var(--action);
+    border:
+        1px solid
+        rgba(129, 140, 248, 0.28);
+    border-radius: 10px;
+}
+
+.contest-command-error >
+strong {
+    color: var(--status-critical);
+    background:
+        rgba(225, 29, 72, 0.08);
+    border-color:
+        rgba(251, 113, 133, 0.16);
+}
+
+.contest-command-loader {
+    width: 45px;
+    height: 45px;
+    border:
+        3px solid
+        rgba(148, 163, 184, 0.16);
+    border-top-color: var(--text);
+    border-radius: 50%;
+    animation:
+        contest-loader-spin
+        800ms linear infinite;
+}
+
+/*
+|--------------------------------------------------------------------------
+| API metadata
+|--------------------------------------------------------------------------
+*/
+
+.contest-command-data-note {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 28px;
+    padding: 13px 16px;
+    color: var(--text-dim);
+    font-size: 10px;
+    line-height: 1.5;
+    background:
+        rgba(15, 23, 42, 0.42);
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.09);
+    border-radius: 11px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Keyboard focus
+|--------------------------------------------------------------------------
+*/
+
+.contest-next-panel >
+button:focus-visible,
+.contest-command-refresh:focus-visible,
+.contest-command-filters
+button:focus-visible,
+.contest-command-state >
+button:focus-visible {
+    outline:
+        3px solid
+        rgba(99, 102, 241, 0.25);
+    outline-offset: 3px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Responsive layout
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 1120px) {
+    .contest-command-hero {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .contest-next-panel {
+        width: min(100%, 620px);
+    }
+
+    .contest-command-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    .contest-command-page {
+        padding-top: 76px;
+    }
+
+    .contest-command-hero,
+    .contest-command-content {
+        width:
+            min(
+                100% - 28px,
+                1220px
+            );
+    }
+
+    .contest-command-hero {
+        min-height: auto;
+        padding: 62px 0 72px;
+    }
+
+    .contest-command-hero h1 {
+        font-size:
+            clamp(43px, 13vw, 62px);
+    }
+
+    .contest-command-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .contest-command-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .contest-command-toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .contest-command-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contest-command-data-note {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .contest-command-hero-copy >
+    p {
+        font-size: 15px;
+    }
+
+    .contest-next-panel {
+        padding: 21px 18px;
+        border-radius: 18px;
+    }
+
+    .contest-next-time,
+    .contest-next-countdown {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+
+    .contest-next-time strong,
+    .contest-next-countdown strong {
+        text-align: left;
+    }
+
+    .contest-command-content {
+        padding:
+            63px 0 80px;
+    }
+
+    .contest-command-sort {
+        align-items: stretch;
+        flex-direction: column;
+        height: auto;
+        padding: 11px 13px;
+    }
+
+    .contest-command-sort select {
+        min-height: 30px;
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Motion
+|--------------------------------------------------------------------------
+*/
+
+@keyframes contest-refresh-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes contest-loader-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
+    .contest-command-page *,
+    .contest-command-page *::before,
+    .contest-command-page *::after {
+        scroll-behavior:
+            auto !important;
+        animation-duration:
+            0.01ms !important;
+        animation-iteration-count:
+            1 !important;
+        transition-duration:
+            0.01ms !important;
+    }
+}

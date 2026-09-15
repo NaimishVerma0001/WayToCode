@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Production builds
+build/
+dist/
+
+# Test coverage
+coverage/
+*.lcov
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Only the root lockfile is used; a workspace lockfile installs a different
+# tree than CI and production do.
+client/package-lock.json
+server/package-lock.json
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Caches
+.vite/
+.eslintcache
+.npm/
+*.tsbuildinfo
+
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

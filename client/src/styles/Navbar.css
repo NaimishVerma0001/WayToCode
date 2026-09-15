@@ -1,0 +1,274 @@
+/*
+|--------------------------------------------------------------------------
+| Navbar
+|--------------------------------------------------------------------------
+| Sticky and quiet. It earns its border only once content scrolls beneath it,
+| so the landing hero meets the page edge cleanly.
+*/
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom: 1px solid transparent;
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  backdrop-filter: saturate(1.4) blur(14px);
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.navbar--scrolled {
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  border-bottom-color: var(--line);
+}
+
+.navbar__inner {
+  display: flex;
+  gap: var(--space-6);
+  align-items: center;
+  width: 100%;
+  max-width: var(--shell-max);
+  padding-inline: var(--shell-gutter);
+  margin-inline: auto;
+  block-size: 60px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Wordmark
+|--------------------------------------------------------------------------
+| A monospace tile locked up with the Archivo wordmark: the two faces the
+| product is built from, stated once at the top left.
+*/
+
+.wordmark {
+  display: inline-flex;
+  gap: var(--space-3);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.wordmark__mark {
+  display: grid;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--action-text);
+  background: var(--action);
+  border-radius: var(--radius-sm);
+  place-items: center;
+  block-size: 26px;
+  inline-size: 26px;
+}
+
+.wordmark__text {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.035em;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Links
+|--------------------------------------------------------------------------
+| The active route is marked by a 2px rule pinned to the bar's baseline,
+| which reads as a tab without the chrome of one.
+*/
+
+.navbar__nav {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+  margin-inline-end: auto;
+}
+
+.navbar__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-fast) var(--ease-out);
+  block-size: 34px;
+}
+
+.navbar__link:hover {
+  color: var(--text);
+}
+
+.navbar__link--active {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.navbar__link--active::after {
+  position: absolute;
+  right: var(--space-3);
+  bottom: -14px;
+  left: var(--space-3);
+  background: var(--action);
+  content: "";
+  block-size: 2px;
+}
+
+/* Admin is the one link that is allowed a hue, because it marks privilege. */
+.navbar__link--admin {
+  color: var(--rank-candidate);
+}
+
+.navbar__link--admin:hover,
+.navbar__link--admin.navbar__link--active {
+  color: var(--rank-candidate);
+}
+
+.navbar__link--admin.navbar__link--active::after {
+  background: var(--rank-candidate);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Actions
+|--------------------------------------------------------------------------
+*/
+
+.navbar__actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.avatar {
+  display: grid;
+  color: var(--text);
+  background: var(--ink-750);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+  place-items: center;
+  block-size: 32px;
+  inline-size: 32px;
+}
+
+.avatar:hover {
+  background: var(--ink-700);
+  border-color: var(--line-accent);
+}
+
+.avatar__initials {
+  font-size: var(--text-2xs);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.navbar__toggle {
+  display: none;
+  color: var(--text-secondary);
+  background: var(--surface-overlay);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  place-items: center;
+  block-size: 34px;
+  inline-size: 34px;
+}
+
+.navbar__toggle:hover {
+  color: var(--text);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Mobile panel
+|--------------------------------------------------------------------------
+*/
+
+.navbar__mobile {
+  display: none;
+  flex-direction: column;
+  padding: var(--space-2) var(--shell-gutter) var(--space-4);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.navbar__mobile-link {
+  display: flex;
+  align-items: center;
+  padding-inline: var(--space-2);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  block-size: 46px;
+}
+
+.navbar__mobile-link:last-child {
+  border-bottom: none;
+}
+
+.navbar__mobile-link--active {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.navbar__mobile-link--signout {
+  width: 100%;
+  color: var(--status-critical);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Responsive
+|--------------------------------------------------------------------------
+| Below 900px the link row is replaced by the panel; below 560px the
+| "Sign out" label collapses to its icon to keep the bar on one line.
+*/
+
+@media (max-width: 900px) {
+  .navbar__nav {
+    display: none;
+  }
+
+  .navbar__toggle {
+    display: grid;
+  }
+
+  .navbar__actions {
+    margin-inline-start: auto;
+  }
+
+  .navbar__mobile--open {
+    display: flex;
+    animation: navbar-drop var(--duration-base) var(--ease-out);
+  }
+}
+
+@media (max-width: 560px) {
+  .navbar__signout span {
+    display: none;
+  }
+
+  .navbar__signout {
+    padding-inline: var(--space-2);
+  }
+}
+
+@keyframes navbar-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

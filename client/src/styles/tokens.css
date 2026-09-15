@@ -1,0 +1,260 @@
+/*
+|--------------------------------------------------------------------------
+| Way2Code Design Tokens
+|--------------------------------------------------------------------------
+|
+| One rule governs this system:
+|
+|   THE INTERFACE IS ACHROMATIC. EVERY SATURATED COLOUR ENCODES REAL DATA.
+|
+| Chrome — surfaces, borders, text, buttons — is built entirely from the ink
+| ramp. Hue is reserved for information the user already reads as colour:
+| which platform a number came from, which rating tier they sit in, how hard
+| a problem is. A gradient that means nothing is a gradient that competes
+| with a gradient that does.
+|
+| This is why the app does not have a "brand purple".
+|
+*/
+
+:root {
+  /*
+  |--------------------------------------------------------------------------
+  | Ink ramp — the entire interface chrome
+  |--------------------------------------------------------------------------
+  | Cool and slightly blue, the way an editor theme is, rather than neutral
+  | grey. Steps are spaced so adjacent surfaces separate without a border.
+  */
+  --ink-950: #06090E;
+  --ink-900: #0A0E15;
+  --ink-850: #0E141D;
+  --ink-800: #131A25;
+  --ink-750: #18212E;
+  --ink-700: #1E2837;
+  --ink-600: #2A3646;
+  --ink-500: #3A4859;
+  --ink-400: #55677D;
+  --ink-300: #7A8BA3;
+  --ink-200: #A3B2C6;
+  --ink-100: #CDD8E6;
+  --ink-050: #E9EFF8;
+
+  /* Semantic surfaces */
+  --bg: var(--ink-950);
+  --surface: var(--ink-900);
+  --surface-raised: var(--ink-850);
+  --surface-overlay: var(--ink-800);
+  --surface-hover: var(--ink-800);
+
+  --line: #1B2432;
+  --line-strong: #273344;
+  --line-accent: #35435A;
+
+  --text: var(--ink-050);
+  --text-secondary: var(--ink-200);
+  --text-muted: var(--ink-300);
+  --text-dim: var(--ink-400);
+
+  /* The primary action spends no hue: maximum contrast, zero meaning stolen. */
+  --action: #EDF3FB;
+  --action-hover: #FFFFFF;
+  --action-text: #0A0E15;
+
+  /*
+  |--------------------------------------------------------------------------
+  | Rating ladder — the Codeforces tiers
+  |--------------------------------------------------------------------------
+  | This audience reads these hues fluently: a cyan handle is a specialist,
+  | an orange one is a master. Borrowing the ladder means the rank badge
+  | needs no legend.
+  */
+  --rank-newbie: #9FA9B5;
+  --rank-pupil: #37C46B;
+  --rank-specialist: #1FBFBF;
+  --rank-expert: #4C82F7;
+  --rank-candidate: #A560F0;
+  --rank-master: #FF9B2E;
+  --rank-grandmaster: #FF4747;
+
+  /*
+  |--------------------------------------------------------------------------
+  | Platform identity
+  |--------------------------------------------------------------------------
+  | Each platform's own colour, so a number's origin is readable at a glance
+  | without reading the label.
+  */
+  --platform-leetcode: #FFA116;
+  --platform-codeforces: #3B9FE0;
+  --platform-codechef: #D08B5B;
+  --platform-atcoder: #9AA7B8;
+  --platform-geeksforgeeks: #3DA55C;
+  --platform-hackerrank: #00B074;
+  --platform-github: #C9D1D9;
+
+  /* Problem difficulty, matching what LeetCode itself uses. */
+  --difficulty-easy: #37C46B;
+  --difficulty-medium: #FFA116;
+  --difficulty-hard: #FF4747;
+
+  /* Status. Used only for state, never for emphasis. */
+  --status-positive: #37C46B;
+  --status-caution: #FFA116;
+  --status-critical: #FF5C5C;
+  --status-info: #4C82F7;
+
+  /*
+  |--------------------------------------------------------------------------
+  | Typography
+  |--------------------------------------------------------------------------
+  | Archivo carries the scoreboard voice at heavy weights and tight tracking.
+  | Public Sans reads quietly underneath it. JetBrains Mono is what these
+  | users look at all day, so every handle, count and verdict is set in it.
+  */
+  --font-display: "Archivo", "Archivo Fallback", system-ui, sans-serif;
+  --font-body: "Public Sans", "Public Sans Fallback", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Type scale — 1.25 major third, rounded to whole pixels. */
+  --text-2xs: 0.6875rem; /* 11px */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.8125rem; /* 13px */
+  --text-base: 0.9375rem; /* 15px */
+  --text-md: 1.0625rem; /* 17px */
+  --text-lg: 1.3125rem; /* 21px */
+  --text-xl: 1.625rem; /* 26px */
+  --text-2xl: 2.125rem; /* 34px */
+  --text-3xl: 2.75rem; /* 44px */
+  --text-4xl: 3.5rem; /* 56px */
+
+  --tracking-tight: -0.03em;
+  --tracking-snug: -0.015em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+  --tracking-caps: 0.1em;
+
+  --leading-tight: 1.08;
+  --leading-snug: 1.3;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.7;
+
+  /*
+  |--------------------------------------------------------------------------
+  | Space — 4px base, named by role rather than by number
+  |--------------------------------------------------------------------------
+  */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /*
+   * Wide enough to actually use a desktop screen. At 1240px a 1900px display
+   * left ~330px of dead margin on each side, which is what made every page
+   * read as a narrow column floating in emptiness.
+   */
+  --shell-max: 1600px;
+  --shell-narrow: 1100px;
+  --shell-gutter: clamp(1rem, 3vw, 2.5rem);
+
+  /*
+  |--------------------------------------------------------------------------
+  | Radii & elevation
+  |--------------------------------------------------------------------------
+  | Shadows on a near-black ground read as smudges, so depth comes from the
+  | surface ramp and a hairline highlight instead.
+  */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  --elevation-1: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset;
+  --elevation-2: 0 8px 24px -12px rgba(0, 0, 0, 0.8),
+    0 1px 0 0 rgba(255, 255, 255, 0.045) inset;
+  --elevation-3: 0 24px 60px -24px rgba(0, 0, 0, 0.9),
+    0 1px 0 0 rgba(255, 255, 255, 0.05) inset;
+
+  /*
+  |--------------------------------------------------------------------------
+  | Motion
+  |--------------------------------------------------------------------------
+  | Short and mechanical. This is an instrument panel, not a marketing page.
+  */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --duration-slow: 320ms;
+
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--ink-200);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Rank and platform helpers
+|--------------------------------------------------------------------------
+| Applied as data attributes so markup declares meaning, not colour:
+|   <span class="rank" data-rank="expert">
+*/
+[data-rank="newbie"] {
+  --rank-color: var(--rank-newbie);
+}
+[data-rank="pupil"] {
+  --rank-color: var(--rank-pupil);
+}
+[data-rank="specialist"] {
+  --rank-color: var(--rank-specialist);
+}
+[data-rank="expert"] {
+  --rank-color: var(--rank-expert);
+}
+[data-rank="candidate"] {
+  --rank-color: var(--rank-candidate);
+}
+[data-rank="master"] {
+  --rank-color: var(--rank-master);
+}
+[data-rank="grandmaster"] {
+  --rank-color: var(--rank-grandmaster);
+}
+
+[data-platform="leetcode"] {
+  --platform-color: var(--platform-leetcode);
+}
+[data-platform="codeforces"] {
+  --platform-color: var(--platform-codeforces);
+}
+[data-platform="codechef"] {
+  --platform-color: var(--platform-codechef);
+}
+[data-platform="atcoder"] {
+  --platform-color: var(--platform-atcoder);
+}
+[data-platform="geeksforgeeks"] {
+  --platform-color: var(--platform-geeksforgeeks);
+}
+[data-platform="hackerrank"] {
+  --platform-color: var(--platform-hackerrank);
+}
+[data-platform="github"] {
+  --platform-color: var(--platform-github);
+}
+
+[data-difficulty="easy"] {
+  --difficulty-color: var(--difficulty-easy);
+}
+[data-difficulty="medium"] {
+  --difficulty-color: var(--difficulty-medium);
+}
+[data-difficulty="hard"] {
+  --difficulty-color: var(--difficulty-hard);
+}
