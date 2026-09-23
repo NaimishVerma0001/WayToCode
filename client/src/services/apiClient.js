@@ -9,7 +9,7 @@
  * than letting `undefined` reach `.replace()` and blank the whole app.
  */
 const resolveApiBaseUrl = () => {
-  const configured = import.meta.env?.VITE_API_URL;
+  const configured = import.meta.env.VITE_API_URL;
 
   if (typeof configured === "string" && configured.trim()) {
     return configured.trim();
